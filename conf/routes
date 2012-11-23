@@ -5,5 +5,14 @@
 # Home page
 GET     /                           controllers.Application.index
 
+# Customer pages
+GET     /customer                   controllers.CustomerController.index
+POST    /customer                   controllers.CustomerController.persist
+POST    /customer/:id/delete        controllers.CustomerController.remove(id: Long)
+
+GET     /product                    controllers.ProductController.index
+POST    /product                    controllers.ProductController.persist
+POST    /product/:id/delete         controllers.ProductController.remove(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
