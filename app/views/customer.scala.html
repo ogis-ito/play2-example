@@ -1,35 +1,37 @@
-@(customers: List[Customer], form: Form[Customer])
+@(customers: List[Customer], customerForm: Form[Customer])
+@import helper._
 @main("顧客一覧") {
-
-  <h1>顧客一覧（@customers.size 名）</h1>
-
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>氏名</th>
-        <th>住所</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    @customers.map { customer =>
-      <tr>
-        <td>@customer.id</td>
-        <td>@customer.name</td>
-        <td>@customer.address</td>
-        <td>
-        </td>
-      </tr>
-    }
-    </tbody>
-  </table>
-
-  <h2>新規顧客</h2>
-  @helper.form(routes.CustomerController.persist) {
-    @helper.inputText(form("name"))
-    @helper.inputText(form("address"))
-    <input type="submit" value="登録">
+<h1>顧客管理</h1>
+<h2>顧客一覧（@customers.size 名）</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>氏名</th>
+      <th>住所</th>
+      <th>アクション</th>
+    </tr>
+  </thead>
+  <tbody>
+  @customers.map { customer =>
+    <tr>
+      <td>@customer.id</td>
+      <td>@customer.name</td>
+      <td>@customer.address</td>
+      <td>
+        @form(routes.CustomerController.remove(customer.id)) {
+          <input type="submit" value="削除">
+        }
+      </td>
+    </tr>
   }
+  </tbody>
+</table>
 
+<h2>新規顧客</h2>
+@form(routes.CustomerController.persist) {
+  @inputText(customerForm("name"))
+  @inputText(customerForm("address"))
+  <input type="submit" value="登録">
+}
 }

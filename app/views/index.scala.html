@@ -1,7 +1,8 @@
 @(message: String)
-
-@main("Welcome to Play 2.0") {
-    
-    @play20.welcome(message)
-    
+@main(message) {
+<h1>@message</h1>
+<ul>
+  <li><a href="customer">顧客管理</a></li>
+  <li><a href="product">商品管理</a></li>
+</ul>
 }

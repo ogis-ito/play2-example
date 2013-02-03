@@ -4,11 +4,9 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
 
-import org.squeryl.PrimitiveTypeMode._
-
 import com.codahale.jerkson.Json
 
-import models.{AppDB, Customer}
+import models.Customer
 
 object CustomerController extends Controller {
 
@@ -25,7 +23,7 @@ object CustomerController extends Controller {
 
   def persist = Action { implicit request =>
     form.bindFromRequest.value map { customer =>
-      inTransaction(AppDB.customerTable insert customer)
+      Customer.persist(customer);
       Redirect(routes.CustomerController.index)
     } getOrElse BadRequest
   }

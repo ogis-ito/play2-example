@@ -1,8 +1,10 @@
+bin
 logs
 project/project
 project/target
 target
 tmp
+.cache
 .history
+.target
 dist
-/.cache

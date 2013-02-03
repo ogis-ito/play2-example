@@ -13,6 +13,12 @@ object Customer {
     }
   }
 
+  def persist(customer: Customer) {
+    inTransaction {
+      AppDB.customerTable insert customer
+    }
+  }
+
   def remove(id: Long) {
     
   }

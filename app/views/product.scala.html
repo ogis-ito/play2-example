@@ -1,39 +1,36 @@
 @(products: List[Product], productForm: Form[(String, Int)])
 @import helper._
 @main("商品一覧") {
-
-  <h1>商品一覧（@products.size 件）</h1>
-
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>商品名</th>
-        <th>単価</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    @products.map { product =>
-      <tr>
-        <td>@product.id</td>
-        <td>@product.name</td>
-        <td>@product.price</td>
-        <td>
-          @form(routes.ProductController.remove(product.id)) {
-            <input type="submit" value="削除">
-          }
-        </td>
-      </tr>
-    }
-    </tbody>
-  </table>
-
-  <h2>新規商品</h2>
-  @form(routes.ProductController.persist) {
-    @inputText(productForm("name"))
-    @inputText(productForm("price"))
-    <input type="submit" value="登録">
+<h1>商品一覧（@products.size 件）</h1>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>商品名</th>
+      <th>単価</th>
+      <th>アクション</th>
+    </tr>
+  </thead>
+  <tbody>
+  @products.map { product =>
+    <tr>
+      <td>@product.id</td>
+      <td>@product.name</td>
+      <td>@product.price</td>
+      <td>
+        @form(routes.ProductController.remove(product.id)) {
+          <input type="submit" value="削除">
+        }
+      </td>
+    </tr>
   }
+  </tbody>
+</table>
 
+<h2>新規商品</h2>
+@form(routes.ProductController.persist) {
+  @inputText(productForm("name"))
+  @inputText(productForm("price"))
+  <input type="submit" value="登録">
+}
 }
