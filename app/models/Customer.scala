@@ -15,12 +15,14 @@ object Customer {
 
   def persist(customer: Customer) {
     inTransaction {
-      AppDB.customerTable insert customer
+      AppDB.customerTable.insert(customer)
     }
   }
 
   def remove(id: Long) {
-    
+    inTransaction {
+      AppDB.customerTable.deleteWhere(t => t.id === id)
+    }
   }
 
 }

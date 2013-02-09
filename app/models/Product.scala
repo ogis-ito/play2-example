@@ -18,14 +18,14 @@ object Product {
 
   def findAll(): List[Product] = {
     DB.withConnection { implicit c =>
-      SQL("select * from PRODUCT")
+      SQL("select * from T_PRODUCT")
         .as(product *)
     }
   }
 
   def persist(product: Product) {
     DB.withConnection { implicit c =>
-      SQL("insert into PRODUCT (NAME, PRICE) values ({name}, {price})")
+      SQL("insert into T_PRODUCT (NAME, PRICE) values ({name}, {price})")
         .on(
           'name -> product.name,
           'price -> product.price)
@@ -35,7 +35,7 @@ object Product {
 
   def remove(id: Long) {
     DB.withConnection { implicit c =>
-      SQL("delete from PRODUCT where id = {id}")
+      SQL("delete from T_PRODUCT where id = {id}")
         .on(
           'id -> id)
         .executeUpdate()

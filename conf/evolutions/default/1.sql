@@ -1,14 +1,14 @@
-# Customers, Product schema
+# Customer, Product schema
 
 # -- !Ups
 
-create table CUSTOMER (
+create table T_CUSTOMER (
   ID bigint primary key not null auto_increment,
   NAME varchar(255) not null,
   ADDRESS varchar(255)
 );
 
-create table PRODUCT (
+create table T_PRODUCT (
   ID bigint primary key not null auto_increment,
   NAME varchar(255) not null,
   PRICE integer not null
@@ -16,5 +16,5 @@ create table PRODUCT (
 
 # -- !Downs
 
-drop table PRODUCT;
-drop table CUSTOMER;
+drop table T_PRODUCT;
+drop table T_CUSTOMER;
