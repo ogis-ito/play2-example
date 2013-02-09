@@ -10,16 +10,9 @@ object Product {
   val product = {
     get[Long]("id") ~
     get[String]("name") ~
-    get[Long]("price") map {
+    get[Int]("price") map {
       case id ~ name ~ price =>
         Product(id, name, price)
-    }
-  }
-
-  def findAll(): List[Product] = {
-    DB.withConnection { implicit c =>
-      SQL("select * from T_PRODUCT")
-        .as(product *)
     }
   }
 
@@ -42,9 +35,15 @@ object Product {
     }
   }
 
+  def findAll(): List[Product] = {
+    DB.withConnection { implicit c =>
+      SQL("select * from T_PRODUCT")
+        .as(product *)
+    }
+  }
 }
 
 case class Product(
   id: Long,
   name: String,
-  price: Long)
+  price: Int)

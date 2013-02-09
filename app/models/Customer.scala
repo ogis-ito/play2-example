@@ -1,9 +1,26 @@
 package models
 
-import org.squeryl.KeyedEntity
 import org.squeryl.PrimitiveTypeMode._
 
 object Customer {
+
+  def persist(customer: Customer) {
+    inTransaction {
+      AppDB.customerTable.insert(customer)
+    }
+  }
+
+  def update(customer: Customer) {
+    inTransaction {
+      AppDB.customerTable.update(customer)
+    }
+  }
+
+  def remove(id: Long) {
+    inTransaction {
+      AppDB.customerTable.deleteWhere(c => c.id === id)
+    }
+  }
 
   def findAll(): List[Customer] = {
     inTransaction {
@@ -12,26 +29,10 @@ object Customer {
       ).toList
     }
   }
-
-  def persist(customer: Customer) {
-    inTransaction {
-      AppDB.customerTable.insert(customer)
-    }
-  }
-
-  def remove(id: Long) {
-    inTransaction {
-      AppDB.customerTable.deleteWhere(t => t.id === id)
-    }
-  }
-
 }
 
 case class Customer(
   name: String,
   address: Option[String])
-  extends KeyedEntity[Long] {
-
-  val id: Long = 0
-
+  extends EntityBase {
 }

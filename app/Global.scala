@@ -23,5 +23,4 @@ object Global extends GlobalSettings {
 
   def getSession(app: Application, adapter: DatabaseAdapter) =
     Session.create(DB.getConnection()(app), adapter)
-
 }
