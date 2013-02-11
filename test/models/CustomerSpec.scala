@@ -3,19 +3,21 @@ package models
 import play.api.test._
 import play.api.test.Helpers._
 
-import org.scalatest.FlatSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.specs2.mutable._
 import org.squeryl.PrimitiveTypeMode.inTransaction
 
-class CustomerSpec extends FlatSpec with ShouldMatchers {
+class CustomerSpec extends Specification {
 
-  "A customer" should "be creatable" in {
-    running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
-      inTransaction {
-        var customer = Customer.persist(Customer("Foo", Some("Bar")))
-        customer.id should not equal 0
+  "Customer" should {
+    "be persistable" in {
+      running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
+        inTransaction {
+          var customer = Customer.persist(Customer("Foo", Some("Bar")))
+          customer.id must be_>(0L)
+          customer.name must equalTo("Foo")
+          customer.address must beSome("Bar")
+        }
       }
     }
   }
-
 }

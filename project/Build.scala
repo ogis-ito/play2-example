@@ -10,16 +10,19 @@ object ApplicationBuild extends Build {
   val appDependencies =
     Seq(
       // Add your project dependencies here
-      "mysql" % "mysql-connector-java" % "5.1.21",
       "org.squeryl" %% "squeryl" % "0.9.5-2",
-      "org.scalatest" %% "scalatest" % "1.8" % "test"
+      "mysql" % "mysql-connector-java" % "5.1.21"
     )
 
+  lazy val s = Defaults.defaultSettings ++
+    Seq(ScctPlugin.instrumentSettings: _*)
+
   val main =
-    PlayProject(appName, appVersion, appDependencies, mainLang = SCALA)
+    PlayProject(appName, appVersion, appDependencies,
+       mainLang = SCALA, settings = s)
       .settings(
         // Add your own project settings here
-        testOptions in Test := Nil
+        parallelExecution in test := false
       )
 
 }
