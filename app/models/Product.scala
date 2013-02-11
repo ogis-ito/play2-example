@@ -35,6 +35,16 @@ object Product {
     }
   }
 
+  def find(id: Long): Option[Product] = {
+    DB.withConnection { implicit c =>
+      SQL("select * from T_PRODUCT where id = {id}")
+        .on(
+          'id -> id)
+        .as(product *)
+        .headOption
+    }
+  }
+
   def findAll(): List[Product] = {
     DB.withConnection { implicit c =>
       SQL("select * from T_PRODUCT")

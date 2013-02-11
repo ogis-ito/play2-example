@@ -1,0 +1,54 @@
+@(order: Order)
+@import helper._
+@main("注文 #") {
+<h1>注文 #@order.id</h1>
+<table>
+  <tbody>
+    <tr>
+      <th>ID</th>
+      <td>@order.id</td>
+    </tr>
+    <tr>
+      <th>注文日</th>
+      <td>@order.orderDate</td>
+    </tr>
+    <tr>
+      <th>顧客</th>
+      <td>@order.customer.name</td>
+    </tr>
+    <tr>
+      <th>合計金額</th>
+      <td>@order.totalAmount</td>
+    </tr>
+  </tbody>
+</table>
+<table id="detailsTable">
+  <thead>
+    <th>明細 ID</th>
+    <th>商品</th>
+    <th>価格</th>
+    <th>数量</th>
+    <th>小計</th>
+  </thead>
+  <tbody>
+  @order.details.map { detail =>
+    <tr>
+      <td>@detail.id</td>
+      <td>@detail.product.name</td>
+      <td>@detail.product.price</td>
+      <td>@detail.quantity</td>
+      <td>@detail.amount</td>
+    </tr>
+  }
+  </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#detailsTable").dataTable({
+    "bJQueryUI": true,
+    "sPaginationType": "full_numbers"
+  });
+});
+</script>
+}

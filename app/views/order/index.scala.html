@@ -5,12 +5,13 @@
 <h2>検索条件</h2>
 
 <h2>検索結果（@orders.size 件）</h2>
-<table>
+<table id="ordersTable">
   <thead>
     <tr>
       <th>ID</th>
       <th>注文日</th>
       <th>顧客</th>
+      <th>明細</th>
       <th>アクション</th>
     </tr>
   </thead>
@@ -19,7 +20,8 @@
     <tr>
       <td>@order.id</td>
       <td>@order.orderDate</td>
-      <td></td>
+      <td>@order.customer.name</td>
+      <td>@order.details.length 件</td>
       <td>
         @form(routes.OrderController.remove(order.id)) {
           <input type="submit" value="削除">
@@ -29,4 +31,13 @@
   }
   </tbody>
 </table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#ordersTable").dataTable({
+    "bJQueryUI": true,
+    "sPaginationType": "full_numbers"
+  });
+});
+</script>
 }

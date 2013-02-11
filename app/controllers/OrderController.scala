@@ -4,6 +4,8 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
 
+import org.squeryl.PrimitiveTypeMode._
+
 import models.Order
 
 object OrderController extends Controller {
@@ -16,7 +18,9 @@ object OrderController extends Controller {
   )
 
   def index = Action {
-    Ok(views.html.order.index(Order.findAll()))
+    inTransaction {
+      Ok(views.html.order.index(Order.findAll()))
+    }
   }
 
   def persist = Action { implicit request =>
@@ -24,6 +28,12 @@ object OrderController extends Controller {
       Order.persist(order)
       Redirect(routes.OrderController.index)
     } getOrElse BadRequest
+  }
+
+  def edit(id: Long) = Action {
+    inTransaction {
+      Ok(views.html.order.edit(Order.find(id).get))
+    }
   }
 
   def remove(id: Long) = Action {

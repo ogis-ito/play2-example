@@ -27,6 +27,12 @@ object Order {
     }
   }
 
+  def find(id: Long): Option[Order] = {
+    inTransaction {
+      AppDB.orderTable.where(o => o.id === id).headOption
+    }
+  }
+
   def findAll(): List[Order] = {
     inTransaction {
       from(AppDB.orderTable)(o =>
@@ -43,11 +49,15 @@ case class Order(
   customerId: Long)
   extends EntityBase {
 
-  lazy val customer: ManyToOne[Customer] =
-    AppDB.customerToOrderRelation.right(this)
+  lazy val customer: Customer =
+    AppDB.customerToOrderRelation.right(this).single
 
-  lazy val details: OneToMany[OrderDetail] =
-    AppDB.orderToDetailRelation.left(this)
+  lazy val details: Array[OrderDetail] =
+    AppDB.orderToDetailRelation.left(this).toArray
+
+  def totalAmount = {
+    details.map(d => d.amount).reduce(_ + _)
+  }
 }
 
 case class OrderDetail(
@@ -58,6 +68,13 @@ case class OrderDetail(
   quantity: Int)
   extends EntityBase {
 
-  lazy val order: ManyToOne[Order] =
-    AppDB.orderToDetailRelation.right(this)
+  lazy val order: Order =
+    AppDB.orderToDetailRelation.right(this).single
+
+  lazy val product: Product =
+    Product.find(productId).get
+
+  def amount = {
+    product.price * quantity
+  }
 }

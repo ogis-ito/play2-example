@@ -1,8 +1,11 @@
 @(products: List[Product], productForm: Form[(String, Int)])
 @import helper._
 @main("商品一覧") {
-<h1>商品一覧（@products.size 件）</h1>
-<table>
+<h1>商品一覧</h1>
+<h2>検索条件</h2>
+
+<h2>検索結果（@products.size 件）</h2>
+<table id="productsTable">
   <thead>
     <tr>
       <th>ID</th>
@@ -33,4 +36,13 @@
   @inputText(productForm("price"))
   <input type="submit" value="登録">
 }
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#productsTable").dataTable({
+    "bJQueryUI": true,
+    "sPaginationType": "full_numbers"
+  });
+});
+</script>
 }

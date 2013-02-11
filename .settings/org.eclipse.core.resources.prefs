@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//app/views/customer/create.scala.html=UTF-8
 encoding//app/views/customer/index.scala.html=UTF-8
 encoding//app/views/index.scala.html=UTF-8
+encoding//app/views/order/edit.scala.html=UTF-8
 encoding//app/views/order/index.scala.html=UTF-8
 encoding//app/views/product/index.scala.html=UTF-8
 encoding/<project>=UTF-8
