@@ -17,13 +17,13 @@ object ProductController extends Controller {
   )
 
   def index = Action {
-    Ok(views.html.product(Product.findAll(), productForm))
+    Ok(views.html.product.index(Product.findAll(), productForm))
   }
 
   def persist = Action { implicit request =>
     productForm.bindFromRequest.fold(
       errors =>
-        BadRequest(views.html.product(Product.findAll(), errors)),
+        BadRequest(views.html.product.index(Product.findAll(), errors)),
       values => {
         Product.persist(Product(0, values._1, values._2))
         Redirect(routes.ProductController.index)
@@ -35,5 +35,4 @@ object ProductController extends Controller {
     Product.remove(id)
     Redirect(routes.ProductController.index)
   }
-
 }

@@ -1,0 +1,32 @@
+@(orders: List[Order])
+@import helper._
+@main("注文一覧") {
+<h1>注文一覧</h1>
+<h2>検索条件</h2>
+
+<h2>検索結果（@orders.size 件）</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>注文日</th>
+      <th>顧客</th>
+      <th>アクション</th>
+    </tr>
+  </thead>
+  <tbody>
+  @orders.map { order =>
+    <tr>
+      <td>@order.id</td>
+      <td>@order.orderDate</td>
+      <td></td>
+      <td>
+        @form(routes.OrderController.remove(order.id)) {
+          <input type="submit" value="削除">
+        }
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
+}

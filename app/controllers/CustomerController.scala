@@ -18,12 +18,16 @@ object CustomerController extends Controller {
   )
 
   def index = Action {
-    Ok(views.html.customer(Customer.findAll(), form))
+    Ok(views.html.customer.index(Customer.findAll()))
+  }
+
+  def create = Action {
+    Ok(views.html.customer.create(form))
   }
 
   def persist = Action { implicit request =>
     form.bindFromRequest.value map { customer =>
-      Customer.persist(customer);
+      Customer.persist(customer)
       Redirect(routes.CustomerController.index)
     } getOrElse BadRequest
   }
@@ -32,5 +36,4 @@ object CustomerController extends Controller {
     Customer.remove(id)
     Redirect(routes.CustomerController.index)
   }
-
 }

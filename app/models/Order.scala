@@ -9,7 +9,7 @@ import org.squeryl.dsl._
 
 object Order {
 
-  def persist(order: Order) {
+  def persist(order: Order): Order = {
     inTransaction {
       AppDB.orderTable.insert(order)
     }

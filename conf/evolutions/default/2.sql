@@ -3,13 +3,13 @@
 # -- !Ups
 
 create table T_ORDER (
-  ID bigint primary key not null auto_increment,
+  ID bigint not null auto_increment primary key,
   ORDER_DATE date not null,
   CUSTOMER_ID bigint not null
 );
 
 create table T_ORDER_DETAIL (
-  ID bigint primary key not null auto_increment,
+  ID bigint not null auto_increment primary key,
   ORDER_ID bigint not null,
   PRODUCT_ID bigint not null,
   QUANTITY integer not null

@@ -1,0 +1,10 @@
+@(customerForm: Form[Customer])
+@import helper._
+@main("新規顧客") {
+<h1>新規顧客</h1>
+@form(routes.CustomerController.persist) {
+  @inputText(customerForm("name"))
+  @inputText(customerForm("address"))
+  <input type="submit" value="登録">
+}
+}

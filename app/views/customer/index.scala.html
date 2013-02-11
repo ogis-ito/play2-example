@@ -1,9 +1,11 @@
-@(customers: List[Customer], customerForm: Form[Customer])
+@(customers: List[Customer])
 @import helper._
 @main("顧客一覧") {
-<h1>顧客管理</h1>
-<h2>顧客一覧（@customers.size 名）</h2>
-<table>
+<h1>顧客一覧</h1>
+<h2>検索条件</h2>
+
+<h2>検索結果（@customers.size 名）</h2>
+<table id="customersTable">
   <thead>
     <tr>
       <th>ID</th>
@@ -27,11 +29,16 @@
   }
   </tbody>
 </table>
-
-<h2>新規顧客</h2>
-@form(routes.CustomerController.persist) {
-  @inputText(customerForm("name"))
-  @inputText(customerForm("address"))
-  <input type="submit" value="登録">
+@form(routes.CustomerController.create) {
+  <input type="submit" value="新規">
 }
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#customersTable").dataTable({
+    "bJQueryUI": true,
+    "sPaginationType": "full_numbers"
+  });
+});
+</script>
 }

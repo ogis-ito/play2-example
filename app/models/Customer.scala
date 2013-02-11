@@ -4,7 +4,7 @@ import org.squeryl.PrimitiveTypeMode._
 
 object Customer {
 
-  def persist(customer: Customer) {
+  def persist(customer: Customer): Customer = {
     inTransaction {
       AppDB.customerTable.insert(customer)
     }

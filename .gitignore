@@ -1,4 +1,6 @@
 bin
+conf/cloudbees.conf
+dist
 logs
 project/project
 project/target
@@ -7,4 +9,3 @@ tmp
 .cache
 .history
 .target
-dist

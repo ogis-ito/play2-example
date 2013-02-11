@@ -5,11 +5,18 @@
 # Home page
 GET     /                           controllers.Application.index
 
+# Order pages
+GET     /order                      controllers.OrderController.index
+POST    /order/:id/delete           controllers.OrderController.remove(id: Long)
+
 # Customer pages
 GET     /customer                   controllers.CustomerController.index
+GET     /customer/new               controllers.CustomerController.create
+POST    /customer/new               controllers.CustomerController.persist
 POST    /customer                   controllers.CustomerController.persist
 POST    /customer/:id/delete        controllers.CustomerController.remove(id: Long)
 
+# Product pages
 GET     /product                    controllers.ProductController.index
 POST    /product                    controllers.ProductController.persist
 POST    /product/:id/delete         controllers.ProductController.remove(id: Long)

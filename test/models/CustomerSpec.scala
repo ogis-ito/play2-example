@@ -12,8 +12,8 @@ class CustomerSpec extends FlatSpec with ShouldMatchers {
   "A customer" should "be creatable" in {
     running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
       inTransaction {
-        var customer = AppDB.customerTable insert Customer("Foo", Some("Bar"))
-        customer.id should not equal(0)
+        var customer = Customer.persist(Customer("Foo", Some("Bar")))
+        customer.id should not equal 0
       }
     }
   }

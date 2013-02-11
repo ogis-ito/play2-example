@@ -3,13 +3,13 @@
 # -- !Ups
 
 create table T_CUSTOMER (
-  ID bigint primary key not null auto_increment,
+  ID bigint not null auto_increment primary key,
   NAME varchar(255) not null,
   ADDRESS varchar(255)
 );
 
 create table T_PRODUCT (
-  ID bigint primary key not null auto_increment,
+  ID bigint not null auto_increment primary key,
   NAME varchar(255) not null,
   PRICE integer not null
 );

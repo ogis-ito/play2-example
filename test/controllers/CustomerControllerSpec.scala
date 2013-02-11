@@ -20,7 +20,8 @@ class CustomerControllerSpec extends FlatSpec with ShouldMatchers {
           "address" -> "bar"
         ))
       status(result) should equal (SEE_OTHER)
-      redirectLocation(result) should equal (Some(routes.CustomerController.index.url))
+      redirectLocation(result) should
+        equal(Some(routes.CustomerController.index.url))
     }
   }
 
